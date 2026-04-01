@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://YOUR-APP-URL.onrender.com"
+"url": "https://hookhive-api.onrender.com"
     }
   ],
   "paths": {
