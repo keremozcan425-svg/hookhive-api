@@ -1,0 +1,215 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "HookHive - AI Content Hook Generator",
+    "description": "Generate viral hooks, captions, and content ideas optimized for TikTok, Instagram, YouTube, and Twitter/X. Perfect for content creators, marketers, and social media managers who need an endless stream of scroll-stopping ideas.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://YOUR-APP-URL.onrender.com"
+    }
+  ],
+  "paths": {
+    "/generate-hooks": {
+      "post": {
+        "summary": "Generate Viral Hooks",
+        "description": "Generate platform-optimized content hooks with engagement estimates, hashtags, and caption drafts.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["topic"],
+                "properties": {
+                  "topic": {
+                    "type": "string",
+                    "description": "Content topic (e.g., 'fitness', 'making money online')"
+                  },
+                  "platform": {
+                    "type": "string",
+                    "enum": ["tiktok", "instagram", "youtube", "twitter"],
+                    "default": "tiktok"
+                  },
+                  "style": {
+                    "type": "string",
+                    "enum": ["storytelling", "controversial", "educational", "emotional", "humorous", "mixed"],
+                    "default": "mixed"
+                  },
+                  "count": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10,
+                    "default": 5
+                  },
+                  "niche": {
+                    "type": "string",
+                    "description": "Content niche for targeted hashtags"
+                  },
+                  "include_hashtags": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "include_caption": {
+                    "type": "boolean",
+                    "default": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generated hooks with metadata"
+          }
+        }
+      }
+    },
+    "/generate-caption": {
+      "post": {
+        "summary": "Generate Full Caption",
+        "description": "Generate a complete platform-optimized caption with CTA and hashtags.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["topic"],
+                "properties": {
+                  "topic": {
+                    "type": "string"
+                  },
+                  "platform": {
+                    "type": "string",
+                    "enum": ["tiktok", "instagram", "youtube", "twitter"],
+                    "default": "instagram"
+                  },
+                  "tone": {
+                    "type": "string",
+                    "enum": ["engaging", "professional", "casual", "inspirational", "witty"],
+                    "default": "engaging"
+                  },
+                  "include_cta": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "include_hashtags": {
+                    "type": "boolean",
+                    "default": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generated caption with hashtags"
+          }
+        }
+      }
+    },
+    "/content-calendar": {
+      "post": {
+        "summary": "Generate Content Calendar",
+        "description": "Create a multi-day content plan with daily post ideas, hooks, and optimal posting times.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["niche"],
+                "properties": {
+                  "niche": {
+                    "type": "string"
+                  },
+                  "platform": {
+                    "type": "string",
+                    "enum": ["tiktok", "instagram", "youtube", "twitter"],
+                    "default": "tiktok"
+                  },
+                  "days": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 30,
+                    "default": 7
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Content calendar with daily plans"
+          }
+        }
+      }
+    },
+    "/trending-formats": {
+      "get": {
+        "summary": "Get Trending Formats",
+        "description": "Get currently trending content formats for a specific platform.",
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["tiktok", "instagram", "youtube", "twitter"],
+              "default": "tiktok"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trending formats and best practices"
+          }
+        }
+      }
+    },
+    "/hashtags": {
+      "get": {
+        "summary": "Get Hashtag Suggestions",
+        "description": "Get curated hashtag suggestions for any niche and platform.",
+        "parameters": [
+          {
+            "name": "niche",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "instagram"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 15,
+              "minimum": 1,
+              "maximum": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hashtag suggestions"
+          }
+        }
+      }
+    }
+  }
+}
